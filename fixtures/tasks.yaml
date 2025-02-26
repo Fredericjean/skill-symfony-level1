@@ -1,0 +1,6 @@
+App\Entity\Task:
+  task_{1..10}:
+    title: "<sentence(3)>"
+    description: "<text(100)>"
+    status: "<randomElement(['A faire', 'En cours', 'Terminé'])>"
+    creationDate: "<dateTimeBetween('-30 days', 'now')>"
