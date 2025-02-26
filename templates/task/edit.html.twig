@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Modification d'une Tâche
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+	<h1 class="text-center">Modification d'une Tâche</h1>
+	{% include 'task/_form.html.twig' with { buttonLabel: 'Modifier' } %}
+{% endblock %}

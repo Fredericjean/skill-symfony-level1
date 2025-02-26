@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Création d'une tâche
+{{ parent() }}
+    
+{% endblock %}
+
+{% block body %}
+    <h1>Création d'une Tâche</h1>
+    {% include 'task/_form.html.twig' with { buttonLabel: 'Créer'} %}
+{% endblock %}
