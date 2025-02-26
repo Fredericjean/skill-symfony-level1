@@ -16,22 +16,30 @@
             </tr>
         </thead>
         <tbody>
-            {% for task in tasks %}
-                <tr>
-                    <td>{{ task.title }}</td>
-                    <td>{{ task.description }}</td>
-                    <td>
-                        <span class="badge {% if task.status.value == 'A faire' %}bg-warning{% elseif task.status.value == 'En cours' %}bg-primary{% else %}bg-success{% endif %}">
-                            {{ task.status.value }}
-                        </span>
-                    </td>
-                    <td>{{ task.creationDate|date('Y-m-d H:i') }}</td>
-                    <td>
-                        <a href="{{ path('app.task.edit', {id: task.id}) }}" class="btn btn-sm btn-outline-primary">Modifier</a>
-                        {% include 'task/_deleteForm.html.twig' %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
+    {% for task in tasks %}
+        <tr>
+            <td>{{ task.title }}</td>
+            <td>
+                <form action="{{ path('app.task.update_status', {id: task.id}) }}" method="POST">
+                    <input type="hidden" name="_token" value="{{ csrf_token('update_status' ~ task.id) }}">
+
+                    <select name="status" class="form-select" onchange="this.form.submit()">
+                        {% for status in statuses %}
+                            <option value="{{ status.value }}" {% if task.status == status %}selected{% endif %}>
+                                {{ status.value }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </td>
+            <td>{{ task.creationDate|date('Y-m-d H:i') }}</td>
+            <td>
+                <a href="{{ path('app.task.edit', {id: task.id}) }}" class="btn btn-sm btn-warning">Modifier</a>
+                {% include 'task/_deleteForm.html.twig' %}
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+
     </table>
 {% endblock %}
